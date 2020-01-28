@@ -1,8 +1,9 @@
 require('es6-promise');
 
-const promise = new Promise((fulfill, reject) => {
-  fulfill('PROMISE VALUE')
-}).then((successMsg)=> {
-  console.log(successMsg)
-}, null)
-console.log('MAIN PROGRAM')
+const promise = Promise.reject(new Error('error'))
+.then((error) => {
+  console.log(error.message)
+})
+.catch((error) => {
+  console.log(error.message)
+})
