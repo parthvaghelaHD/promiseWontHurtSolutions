@@ -1,9 +1,13 @@
 require('es6-promise');
 
-const promise = Promise.reject(new Error('error'))
-.then((error) => {
-  console.log(error.message)
+first()
+.then((response) => {
+  return second(response)
 })
-.catch((error) => {
-  console.log(error.message)
+.then((response) => {
+  onFulfilled(response)
+})
+
+onFulfilled((response) => {
+  console.log(response)
 })
