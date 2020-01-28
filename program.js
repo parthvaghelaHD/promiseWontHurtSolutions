@@ -1,27 +1,18 @@
 require('es6-promise')
 const process = require('process')
 
-const alwaysThrows =() => {
-  throw Error("OH NOES")
-}
-
-const iterate = (integer) => {
-  console.log(integer)
-  return integer+1
-}
-Promise.resolve(iterate(1))
-  .then(iterate)
-  .then(iterate)
-  .then(iterate)
-  .then(iterate)
-  .then(alwaysThrows)
-  .then(iterate)
-  .then(iterate)
-  .then(iterate)
-  .then(iterate)
-  .then(iterate)
-  .catch((error)=> {
-    console.log(error.message)
+const all = (promise1, promise2) => {
+  let data = [];
+  return new Promise((resolve, reject) => {
+    return promise1.then((response) => {
+      data.push(response);
+      return promise2.then((response) => {
+        data.push(response)
+        resolve(data);
+      });
+    });
   });
-
-
+}
+all(getPromise1(), getPromise2()).then((response) => {
+  console.log(response);
+});
