@@ -1,25 +1,27 @@
 require('es6-promise')
 const process = require('process')
 
-const parsePromised = (json)=> {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(JSON.parse(json));
-    } catch (error) {
-      reject(error);
-    }
+const alwaysThrows =() => {
+  throw Error("OH NOES")
+}
+
+const iterate = (integer) => {
+  console.log(integer)
+  return integer+1
+}
+Promise.resolve(iterate(1))
+  .then(iterate)
+  .then(iterate)
+  .then(iterate)
+  .then(iterate)
+  .then(alwaysThrows)
+  .then(iterate)
+  .then(iterate)
+  .then(iterate)
+  .then(iterate)
+  .then(iterate)
+  .catch((error)=> {
+    console.log(error.message)
   });
-}
-
-const onReject = (error)=> {
-  console.log(error.message);
-}
-
-
-parsePromised(process.argv[2])
-.then(null, onReject)
-.catch((e)=> {
-  throw e
-})
 
 
