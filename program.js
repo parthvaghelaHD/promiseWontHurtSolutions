@@ -1,13 +1,10 @@
 require('es6-promise');
 
-first()
-.then((response) => {
-  return second(response)
+const attachTitle = (value)=> {
+  return 'DR. ' + value
+}
+const promise = new Promise((resolve,reject) => {
+  resolve('MANHATTAN')
 })
-.then((response) => {
-  onFulfilled(response)
-})
-
-onFulfilled((response) => {
-  console.log(response)
-})
+.then(attachTitle)
+.then(console.log)
